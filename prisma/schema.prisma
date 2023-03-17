@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Define the User table
+model User {
+  user_id      Int    @id @default(autoincrement())
+  username     String
+  password     String
+  email        String
+  phone_number String
+}
+
+// Define the Services table
+model Service {
+  service_id   Int       @id @default(autoincrement())
+  service_name String
+  description  String
+  price        Float
+  status       String
+  payments     Payment[]
+}
+
+///////////////////React Native Tables//////////////////////
+
+model Customer {
+  id             Int             @id @default(autoincrement())
+  name           String
+  email          String          @unique
+  phone          String
+  address        String?
+  city           String?
+  state          String?
+  zip            String?
+  birthdate      DateTime?
+  payments       Payment[]
+  participants   Participant[]
+  paymentMethods PaymentMethod[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+}
+
+model Payment {
+  id              Int            @id @default(autoincrement())
+  amount          Float
+  status          String
+  customerId      Int
+  customer        Customer       @relation(fields: [customerId], references: [id])
+  service_id      Int
+  service         Service        @relation(fields: [service_id], references: [service_id])
+  paymentMethodId Int?
+  paymentMethod   PaymentMethod? @relation(fields: [paymentMethodId], references: [id])
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model PaymentMethod {
+  id                      Int       @id @default(autoincrement())
+  customerId              Int
+  customer                Customer  @relation(fields: [customerId], references: [id])
+  providerCustomerId      String
+  providerPaymentMethodId String
+  mandateId               String
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+  Payment                 Payment[]
+}
+
+model Participant {
+  id                  Int      @id @default(autoincrement())
+  firstName           String
+  lastName            String
+  birthdate           DateTime
+  isMinor             Boolean
+  parentGuardianName  String
+  parentGuardianEmail String
+  customerId          Int
+  customer            Customer @relation(fields: [customerId], references: [id])
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}

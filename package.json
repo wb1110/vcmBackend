@@ -1,0 +1,27 @@
+{
+  "name": "vcmbackend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.tsx",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wb1110/vcmBackend.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wb1110/vcmBackend/issues"
+  },
+  "homepage": "https://github.com/wb1110/vcmBackend#readme",
+  "devDependencies": {
+    "@prisma/client": "^4.11.0",
+    "@types/node": "^18.15.3",
+    "prisma": "^4.11.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
