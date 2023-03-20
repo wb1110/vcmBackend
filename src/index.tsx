@@ -1,4 +1,4 @@
-import client from "./prisma/client"; // importing the prisma instance we created.
+import prisma from "../prisma/client"; // importing the prisma instance we created.
 import express from "express";
 
 const app = express();
