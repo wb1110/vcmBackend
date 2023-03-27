@@ -1,6 +1,6 @@
 import express, { json, Express, Request, Response } from "express";
 import { config } from "dotenv";
-import v1Router from "./v1/routes";
+import v1ServicesRouter from "../src/v1/routes/services";
 
 config();
 
@@ -9,7 +9,7 @@ app.use(json());
 
 const port = process.env.PORT || 3000;
 
-app.use("/api/v1", v1Router);
+app.use("/api/v1", v1ServicesRouter);
 
 app.listen(port, () =>
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`)
