@@ -1,9 +1,11 @@
 import express, { json, Express, Request, Response } from "express";
+import prisma from "../../../prisma/client";
 
 const router = express.Router();
 
-router.get("/", (req: Request, res: Response) => {
-  res.send("Get all services");
+router.get("/", async (req: Request, res: Response) => {
+  const services = await prisma.service.findMany();
+  res.status(200).json(services);
 });
 
 router.get("/:serviceId", (req: Request, res: Response) => {
