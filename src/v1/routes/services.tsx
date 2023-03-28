@@ -4,8 +4,13 @@ import prisma from "../../../prisma/client";
 const router = express.Router();
 
 router.get("/", async (req: Request, res: Response) => {
-  const services = await prisma.service.findMany();
-  res.status(200).json(services);
+  try {
+    const services = await prisma.service.findMany();
+    res.status(200).json(services);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 router.get("/:serviceId", (req: Request, res: Response) => {

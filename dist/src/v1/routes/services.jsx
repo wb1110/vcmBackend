@@ -16,8 +16,14 @@ const express_1 = __importDefault(require("express"));
 const client_1 = __importDefault(require("../../../prisma/client"));
 const router = express_1.default.Router();
 router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const services = yield client_1.default.service.findMany();
-    res.status(200).json(services);
+    try {
+        const services = yield client_1.default.service.findMany();
+        res.status(200).json(services);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "Internal server error" });
+    }
 }));
 router.get("/:serviceId", (req, res) => {
     res.send("Get an existing service");
